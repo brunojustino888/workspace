@@ -1,0 +1,18 @@
+
+Cash Flow Management/.classpath
+Cash Flow Management/.project
+Cash Flow Management/.settings/.jsdtscope
+Cash Flow Management/.settings/org.eclipse.core.resources.prefs
+Cash Flow Management/.settings/org.eclipse.jdt.core.prefs
+Cash Flow Management/.settings/org.eclipse.m2e.core.prefs
+Cash Flow Management/.settings/org.eclipse.wst.common.component
+Cash Flow Management/.settings/org.eclipse.wst.common.project.facet.core.xml
+Cash Flow Management/.settings/org.eclipse.wst.common.project.facet.core.prefs.xml
+Cash Flow Management/.settings/org.eclipse.wst.jsdt.ui.superType.container
+*.class
+*.name
+*.prefs
+*.properties
+*.xml
+*.sql
+*.MF
