@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Novo lançamento</title>
+</h:head>
+
+<h:body>
+
+	<ui:composition template="../../WEB-INF/templates/layout.xhtml">
+
+		<ui:define name="content">
+
+			<br />
+
+			<p:panel>
+
+				<h:form id="frm">
+
+					<h2>Incluir novo lançamento</h2>
+					<h5><span style="color: #8B798B">Dica:</span> Checando o campo "Despesa quitada?" você poderá incluir também a data do pagamento.</h5>
+
+					<div style="width: 600px">
+
+						<p:panelGrid columns="2" style="width:600px">
+
+							<p:outputLabel value="Tipo" for="tipoLancamentoRadio" />
+							<p:selectOneRadio required="true" id="tipoLancamentoRadio"
+								value="#{lancamentoInclusaoBean.lancamento.tipo}" label="Tipo">
+								<f:selectItems
+									value="#{lancamentoInclusaoBean.tiposLancamentos}"
+									var="tipoLancamento" itemLabel="#{tipoLancamento.descricao}"
+									itemValue="#{tipoLancamento}" />
+							</p:selectOneRadio>
+
+							<p:outputLabel value="Vencimento" for="vencimentoInput" />
+							<p:calendar size="12" locale="pt_BR" id="vencimentoInput"
+								value="#{lancamentoInclusaoBean.lancamento.vencimento}"
+								label="Data de vencimento" pattern="dd/MM/yyyy">
+							</p:calendar>
+
+							<p:outputLabel value="Despesa quitada?" for="pagoCheckbox" />
+
+							<h:panelGroup style="width:100%">
+
+								<p:outputPanel autoUpdate="true">
+
+									<p:outputLabel value="Data de pagamento" for="pagamentoInput"
+										rendered="#{lancamentoInclusaoBean.depesaPagaSelecionada}" />
+
+									<p:calendar size="12" required="true" pattern="dd/MM/yyyy"
+										locale="pt_BR" id="pagamentoInput" style="margin-left:5px"
+										value="#{lancamentoInclusaoBean.lancamento.dataPagamento}"
+										validator="datafuturaValidator" label="Data de pagamento"
+										rendered="#{lancamentoInclusaoBean.depesaPagaSelecionada}">
+
+										<f:attribute name="quitado"
+											value="#{lancamentoInclusaoBean.depesaPagaSelecionada}" />
+
+									</p:calendar>
+
+									<p:selectBooleanCheckbox id="pagoCheckbox"
+										style="margin-left:5px"
+										value="#{lancamentoInclusaoBean.depesaPagaSelecionada}">
+										<p:ajax event="change" />
+									</p:selectBooleanCheckbox>
+
+								</p:outputPanel>
+
+
+							</h:panelGroup>
+
+							<p:outputLabel value="Valor" for="valorLancamentoInput" />
+							<p:inputText size="12" id="valorLancamentoInput"
+								value="#{lancamentoInclusaoBean.lancamento.valor}"
+								required="true" label="Valor">
+								<f:convertNumber locale="pt_BR" maxFractionDigits="2"
+									minFractionDigits="2" />
+								<f:validateDoubleRange minimum="0" />
+							</p:inputText>
+
+							<p:outputLabel value="Descrição" for="descricaoLancamentoInput" />
+							<p:inputText size="60" id="descricaoLancamentoInput"
+								value="#{lancamentoInclusaoBean.lancamento.descricao}"
+								required="true" label="Descrição do lançamento" />
+						</p:panelGrid>
+
+
+
+						<br />
+
+						<div style="width: 300px; margin: 0 auto">
+							<p:commandButton value="Cadastrar" update="@form"
+								style="margin:auto; width:100px; display:block"
+								action="#{lancamentoInclusaoBean.cadastrar()}" />
+						</div>
+
+					</div>
+
+				</h:form>
+
+			</p:panel>
+
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Lançamentos</title>
+</h:head>
+
+<h:body>
+	<ui:composition template="../../WEB-INF/templates/layout.xhtml">
+		<ui:define name="content">
+
+			<br />
+
+			<p:panel>
+
+				<h:form>
+
+					<h2 align="center">Fluxo de lançamentos</h2>
+					<h5 align="center">
+						<span style="color: #8B798B">Dica:</span> *As colunas podem ser
+						utilizadas para filtrar os lançamentos exibidos na tabela. <br />*Clique
+						em algum filtro da tabela para obter resumos totalizadores.
+					</h5>
+
+					<div style="width: 90%; margin: 0 auto">
+
+						<p:dataTable style="width:100%"
+							emptyMessage="Sem registros de lançamentos encontrados"
+							value="#{lancamentoBean.lancamentoLista}" var="lancamento"
+							rendered="#{not empty lancamentoBean.lancamentoLista}"
+							id="tabelaLancamentos" paginator="true" rows="10"
+							paginatorPosition="bottom">
+
+							<p:column styleClass="tipo" width="8%"
+								sortBy="#{lancamento.tipo}">
+
+								<h:panelGroup rendered="#{lancamento.tipo == 'Receita'}">
+
+									<p:graphicImage name="receita.fw.png" library="img"
+										styleClass="iconeLancamento" />
+
+								</h:panelGroup>
+
+								<h:panelGroup rendered="#{lancamento.tipo == 'Despesa'}">
+
+									<p:graphicImage name="despesa.fw.png" library="img"
+										styleClass="iconeLancamento" />
+
+								</h:panelGroup>
+
+								<h:panelGroup rendered="#{lancamento.tipo == 'Investimento'}">
+
+									<p:graphicImage name="investimento.fw.png" library="img"
+										styleClass="iconeLancamento" />
+
+								</h:panelGroup>
+
+							</p:column>
+
+							<p:column styleClass="tipo" width="10%"
+								sortBy="#{lancamento.tipo}">
+
+								<f:facet name="header">Tipo</f:facet>
+
+								<p:outputLabel value="#{lancamento.tipo}" />
+
+							</p:column>
+
+							<p:column>
+
+								<f:facet name="header">Descrição</f:facet>
+
+								<p:outputLabel value="#{lancamento.descricao}" />
+
+							</p:column>
+
+							<p:column styleClass="valor" width="13%"
+								sortBy="#{lancamento.valor}">
+
+								<f:facet name="header">Valor</f:facet>
+
+								<p:outputLabel value="#{lancamento.valor}">
+
+									<f:convertNumber type="currency" maxFractionDigits="2"
+										minFractionDigits="2" />
+
+								</p:outputLabel>
+
+							</p:column>
+
+							<p:column styleClass="acoes" width="20%">
+
+								<f:facet name="header">Ações</f:facet>
+
+								<p:commandButton oncomplete="PF('detalhesManualDialog').show()"
+									
+									title="Detalhes" icon="ui-icon-info" />
+									
+								<p:confirmDialog showEffect="fade" hideEffect="fade"
+									header="Detalhes do lançamento" severity="info"
+									widgetVar="detalhesManualDialog" appendToBody="true">
+
+									<f:facet name="message">
+										<h:outputText value="Detalhes do lançamento" />
+									</f:facet>
+
+									<div style="width: 100%">
+										<div
+											style="width: 200px; display: block; margin: 0 auto; text-align: center">
+											<p:commandButton value="Fechar" action="#{lancamentoBean.detalhes(lancamento.cod)}"
+												oncomplete="PF('detalhesManualDialog').hide()" />
+										</div>
+									</div>
+								</p:confirmDialog>
+
+
+								<p:commandButton oncomplete="PF('editarManualDialog').show()"
+									title="Editar" icon="ui-icon-pencil" />
+
+								<p:confirmDialog showEffect="fade" hideEffect="fade"
+									header="Editar lançamento" severity="info"
+									widgetVar="editarManualDialog" appendToBody="true">
+
+									<f:facet name="message">
+										<h:outputText value="Editar lançamento" />
+									</f:facet>
+
+									<div style="width: 100%">
+										<div
+											style="width: 200px; display: block; margin: 0 auto; text-align: center">
+											<p:commandButton value="Aplicar Alteraçōes"
+												oncomplete="PF('editarManualDialog').hide()"
+												action="#{lancamentoBean.editar(lancamento.cod)}"
+												update="@all" />
+										</div>
+									</div>
+								</p:confirmDialog>
+
+								<p:commandButton oncomplete="PF('excluirManualDialog').show()"
+									title="Excluir" update="@form" icon="ui-icon-trash" />
+
+								<p:confirmDialog showEffect="fade" hideEffect="fade"
+									header="Confirmação de exclusão" severity="alert"
+									widgetVar="excluirManualDialog" closable="false"
+									appendToBody="true">
+
+									<f:facet name="message">
+										<h:outputText
+											value="Tem certeza que deseja apagar este lançamento?" />
+									</f:facet>
+
+									<div style="width: 100%">
+										<div
+											style="width: 200px; display: block; margin: 0 auto; text-align: center">
+											<p:commandButton value="Sim"
+												oncomplete="PF('excluirManualDialog').hide()"
+												action="#{lancamentoBean.excluir(lancamento.cod)}"
+												update="@all" />
+
+											<p:commandButton value="Não"
+												onclick="PF('excluirManualDialog').hide()" />
+										</div>
+									</div>
+								</p:confirmDialog>
+
+							</p:column>
+
+							<p:summaryRow listener="#{lancamentoBean.resume(lancamento)}">
+								<p:column colspan="3" style="text-align:right">
+									<h:outputText value="Total:" />
+								</p:column>
+								<p:column style="text-align:right">
+									<h:outputText value="#{lancamentoBean.totalPorNcm}">
+										<f:convertNumber type="currency" maxFractionDigits="2"
+											minFractionDigits="2" />
+									</h:outputText>
+								</p:column>
+							</p:summaryRow>
+
+						</p:dataTable>
+
+						<br />
+
+						<div style="float: right; text-align: right">
+							<p:panelGrid columns="2">
+								<h:outputText value="Saldo Total:" />
+								<h:outputText value="R$ #{lancamentoBean.summary()}"
+									style="text-align: right; margin-left: 3px">
+									<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+								</h:outputText>
+							</p:panelGrid>
+						</div>
+
+						<br />
+					</div>
+				</h:form>
+
+			</p:panel>
+
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

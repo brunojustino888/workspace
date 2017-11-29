@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin: 0 0 70px; /* altura do seu footer */
+}
+
+.footer {
+    position: absolute;
+    bottom:0;
+    width:100%;
+    background-color: #4d4d4d;
+    background: -moz-radial-gradient(50% 75%,circle,#676767,#343434);
+    background: -webkit-radial-gradient(50% 75%,circle,#676767,#343434);
+    background: -o-radial-gradient(50% 75%,circle,#676767,#343434);
+    background: -ms-radial-gradient(50% 75%,circle,#676767,#343434);
+    background: radial-gradient(50% 75%,circle,#676767,#343434);
+    border-top: 1px solid #262626;
+    color:#262626;
+}
+
+.tipo {
+	text-align:center;
+}
+
+.iconeLancamento{
+	margin-top: 6px;
+}
+
+.valor{
+	text-align:center;	
+}
+ 
+.acoes{
+	text-align:center;
+}
+
+.ui-widget .ui-icon.fa, .ui-icon.fa {
+    background: none repeat scroll 0 0 transparent!important;
+    text-indent: 0!important;
+    margin-right: 3px;
+    margin-top: 2.5px;
+} 
+
+.ui-chkbox .ui-chkbox-box {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    margin-top: 5px;
+}

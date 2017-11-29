@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body style="background-color:lightgray">
+
+	<ui:composition>
+
+		<h:form>
+
+			<p:menubar style="margin-top:2px">
+
+				<p:submenu label="Financeiro" icon="fa fa-money">
+
+					<p:menuitem value="Novo lançamento"
+						action="/secure/financeiro/lancamentos-incluir.xhtml?faces-redirect=true"
+						icon="fa fa-mail-forward" />
+
+					<p:menuitem value="Fluxo financeiro"
+						action="/secure/financeiro/lancamentos.xhtml?faces-redirect=true"
+						icon="fa fa-bars" />
+
+				</p:submenu>
+
+				<p:submenu icon="ui-icon-gear" style="float:right">
+
+					<p:submenu label="Minha Conta" icon="ui-icon-refresh">
+						<p:menuitem value="Alterar senha"
+							actionListener="#{menuView.save}" icon="ui-icon-disk"
+							update="messages" />
+						<p:menuitem value="Atualizar cadastro"
+							actionListener="#{menuView.update}"
+							icon="ui-icon-arrowrefresh-1-w" update="messages" />
+					</p:submenu>
+
+					<p:separator />
+
+					<p:submenu label="Suporte" icon="ui-icon-newwin">
+						<p:menuitem value="Ajuda" actionListener="#{menuView.save}"
+							icon="ui-icon-help" update="messages" />
+					</p:submenu>
+
+				</p:submenu>
+
+				<f:facet name="options">
+					<p:commandButton type="button" value="Sair" icon="ui-icon-power" />
+				</f:facet>
+
+			</p:menubar>
+
+			<p:growl id="messages" autoUpdate="true" />
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+		</h:form>
+
+	</ui:composition>
+
+</h:body>
+
+</html>
