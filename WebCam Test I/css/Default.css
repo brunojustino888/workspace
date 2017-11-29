@@ -1,0 +1,44 @@
+﻿body {
+  background: -webkit-linear-gradient(left,black,darkblue); /*Safari 5.1-6*/
+  background: -o-linear-gradient(right,black,darkblue); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(right,black,darkblue); /*Fx 3.6-15*/
+  background: linear-gradient(to right,black,darkblue); /*Standard*/
+}
+
+h3 , h5 {
+  text-align: center;
+  color: white;
+}
+
+p {
+  text-align: center;
+}
+
+#div_css_principal {
+  margin: 0 auto; 
+  display: block;
+  width: 750px;
+}
+
+#webcam, #ampulheta {
+  float: left;
+}
+
+#div_css_webcam_left {
+  float: right;
+}
+
+#div_css_webcam_both {
+  clear: both;
+}
+
+#relogio {
+  text-align: center;
+  color: white;
+}
+
+#tiempo {
+  margin: 0 auto; 
+  display: block;
+  width: 170px;
+}
